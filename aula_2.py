@@ -15,15 +15,17 @@ def load_data():
 
 X,Y=load_data()
 modelo=MultinomialNB()
-treino_dados=X[0:int(len(X)*0.9)]
-treino_testes=Y[0:int(len(Y)*0.9)]
-modelo.fit(treino_dados,treino_testes)
-marcacoes=X[-int(len(X)*0.1):]
-marcacoes_teste=Y[-int(len(Y)*0.1):]
-result=modelo.predict(marcacoes)
+treino_dados=X[:90]
+treino_marcacoes=Y[:90]
+
+teste_dados=X[-9:]
+teste_marcacoes=Y[-9:]
+
+modelo.fit(treino_dados,treino_marcacoes)
+result=modelo.predict(teste_dados)
 #Calculando taxa de acerto
-dif=result-marcacoes_teste
+dif=result-teste_marcacoes
 acertos=[d for d in dif if d==0]
 total_acertos=len(acertos)
-total=len(marcacoes_teste)
+total=len(teste_marcacoes)
 print(100.0*total_acertos/total)
